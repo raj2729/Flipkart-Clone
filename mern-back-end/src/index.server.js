@@ -3,6 +3,9 @@ const env = require('dotenv');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
+// User Routes
+const authRoutes = require('./routes/auths');
+
 app=express();
 
 // Environment variables
@@ -14,8 +17,9 @@ mongoose.connect(
   url, 
   {
     useNewUrlParser: true, 
-    useUnifiedTopology: true
-  }
+    useUnifiedTopology: true,
+    useCreateIndex : true
+  } 
 ).then(() => {
   console.log('Database Connected');
   
@@ -23,17 +27,7 @@ mongoose.connect(
 
 app.use(bodyParser());
 
-app.get('/' , (req,res,next) => {
-  res.status(200).json({
-    message : "Hello from server"
-  })
-})
-
-app.post('/data' , (req,res,next) => {
-  res.status(200).json({
-    message : req.body
-  })
-})
+app.use('/api' , authRoutes);
 
 app.listen( process.env.PORT , () => {
   console.log(`Server running on PORT : ${process.env.PORT}`);
