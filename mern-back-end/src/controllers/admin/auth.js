@@ -1,4 +1,4 @@
-const User = require('../models/user');
+const User = require('../../models/user');
 const jwt = require('jsonwebtoken');
 
 exports.signup = async (req,res,next) => {
@@ -6,7 +6,7 @@ exports.signup = async (req,res,next) => {
     if(user) 
     {
       return res.status(400).json({
-        message : "User Already exists"
+        message : "Admin Already exists"
       })
     }
   
@@ -30,7 +30,7 @@ exports.signup = async (req,res,next) => {
       }
       if(data){
         return res.status(201).json({
-          message : "User account created successfully"
+          message : "Admin account created successfully"
         })
       }
     })
@@ -51,7 +51,7 @@ exports.signin = async (req,res,next) => {
     if(user)
     {
       // authenticate present in user models
-      if(user.authenticate(req.body.password))
+      if(user.authenticate(req.body.password) && user.role === 'admin')
       {
         const token = jwt.sign({_id : user._id } , process.env.JWT_SECRET , {expiresIn : '1h'} )// '1d' => 1 day
         const {_id,firstName,lastName,email,password,fullName,role,contactNumber,profilePicture} = user;
