@@ -1,11 +1,12 @@
 const express = require('express');
 const env = require('dotenv');
-const bodyParser = require('body-parser');
+// const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
 // User Routes
 const authRoutes = require('./routes/auths');
 const adminRoutes = require('./routes/admin/auths');
+const categoryRoutes = require('./routes/category');
 
 app=express();
 
@@ -26,10 +27,13 @@ mongoose.connect(
   
 });
 
-app.use(bodyParser());
+// app.use(bodyParser());
+// Same as
+app.use(express.json());
 
 app.use('/api' , authRoutes);
 app.use('/api' , adminRoutes);
+app.use('/api' , categoryRoutes);
 
 app.listen( process.env.PORT , () => {
   console.log(`Server running on PORT : ${process.env.PORT}`);

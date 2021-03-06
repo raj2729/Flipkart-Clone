@@ -53,7 +53,7 @@ exports.signin = async (req,res,next) => {
       // authenticate present in user models
       if(user.authenticate(req.body.password))
       {
-        const token = jwt.sign({_id : user._id } , process.env.JWT_SECRET , {expiresIn : '1h'} )// '1d' => 1 day
+        const token = jwt.sign({_id : user._id , role : user.role } , process.env.JWT_SECRET , {expiresIn : '1h'} )// '1d' => 1 day
         const {_id,firstName,lastName,email,password,fullName,role,contactNumber,profilePicture} = user;
 
         res.status(200).json({
@@ -78,11 +78,4 @@ exports.signin = async (req,res,next) => {
     }
   })
 
-}
-
-exports.requireSignin = (req,res,next) => {
-  const token = req.headers.authorization.split(" ")[1];
-  const user = jwt.verify(token , process.env.JWT_SECRET);
-  req.user=user;
-  next();
 }
