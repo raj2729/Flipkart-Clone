@@ -2,6 +2,7 @@ const express = require('express');
 const env = require('dotenv');
 // const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const path = require('path');
 
 // User Routes
 const authRoutes = require('./routes/auths');
@@ -32,6 +33,7 @@ mongoose.connect(
 // app.use(bodyParser());
 // Same as
 app.use(express.json());
+app.use('/public' , express.static(path.join(__dirname , 'uploads' )));
 
 app.use('/api' , authRoutes);
 app.use('/api' , adminRoutes);
