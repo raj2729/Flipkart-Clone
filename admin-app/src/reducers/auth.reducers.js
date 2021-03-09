@@ -1,7 +1,15 @@
 import { authConstants } from "../actions/constants";
 
 const initState = {
-  name : "Raj"
+  token : null,
+  user : {
+    firstName : '',
+    lastName : '',
+    email : '',
+    picture : ''
+  },
+  authenticate : false,
+  authenticating : false
 };
 
 export default (state = initState , action) => {
@@ -13,7 +21,17 @@ export default (state = initState , action) => {
     case authConstants.LOGIN_REQUEST : 
       state = {
         ...state,
-        ...action.payload
+        authenticating : true
+      }
+      break;
+
+    case authConstants.LOGIN_SUCCESS :
+      state = {
+        ...state,
+        user : action.payload.user,
+        token : action.payload.token,
+        authenticate : true,
+        authenticating : false
       }
       break;
     

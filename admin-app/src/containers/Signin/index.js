@@ -1,13 +1,27 @@
-import React from 'react';
+import React , { useEffect, useState } from 'react';
 import Layout from '../../components/Layout';
 import { Container , Form , Row, Col , Button} from 'react-bootstrap';
 import Input from '../../components/UI/Input';
 import { login } from '../../actions';
-import { useDispatch } from 'react-redux';
+import { useDispatch , useSelector } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+import { isUserLoggedIn } from "../../actions/auth.actions";
+
 
 const Signin = (props) => {
 
+  const [email , setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('')
+  const auth = useSelector(state => state.auth)
+
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if(!auth.authenticate){
+      dispatch(isUserLoggedIn())
+    }
+  } ,[]);
 
   const userLogin = (e) => {
 
@@ -15,12 +29,15 @@ const Signin = (props) => {
     // To prevent default reloading of web pages after clicking submit button
 
     const user = {
-      email : "raj@gmail.com",
-      password : "password"
+      email,password 
     }
 
     dispatch(login(user));
     // login(user);
+  }
+
+  if(auth.authenticate){
+    return <Redirect to={'/'} />
   }
 
 
@@ -34,16 +51,16 @@ const Signin = (props) => {
                 label="Email address" 
                 placeholder="Enter email" 
                 type="email" 
-                value="" 
-                onChange={() => {}} 
+                defaultValue="" 
+                onChange={(e) => setEmail(e.target.value)} 
               />
 
               <Input 
                 label="Password" 
                 placeholder="Enter Password" 
                 type="password" 
-                value="" 
-                onChange={() => {}} 
+                defaultValue="" 
+                onChange={(e) => setPassword(e.target.value)} 
               />
               <Button variant="primary" type="submit">
                 Submit

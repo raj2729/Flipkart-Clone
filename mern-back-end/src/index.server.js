@@ -3,6 +3,7 @@ const env = require('dotenv');
 // const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const path = require('path');
+const cors = require('cors');
 
 // User Routes
 const authRoutes = require('./routes/auths');
@@ -29,6 +30,8 @@ mongoose.connect(
   console.log('Database Connected');
   
 });
+
+app.use(cors());
 
 // app.use(bodyParser());
 // Same as
