@@ -17,7 +17,7 @@ exports.signup = async (req,res,next) => {
       email,
       password,
       userName : Math.random().toString() ,
-      role,
+      role : "admin",
       contactNumber,
       profilePicture
     });

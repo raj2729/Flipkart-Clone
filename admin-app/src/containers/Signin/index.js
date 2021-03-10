@@ -5,23 +5,19 @@ import Input from '../../components/UI/Input';
 import { login } from '../../actions';
 import { useDispatch , useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { isUserLoggedIn } from "../../actions/auth.actions";
+// import { isUserLoggedIn } from "../../actions/auth.actions";
 
 
 const Signin = (props) => {
 
   const [email , setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('')
+  const [error, setError] = useState('');
   const auth = useSelector(state => state.auth)
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    if(!auth.authenticate){
-      dispatch(isUserLoggedIn())
-    }
-  } ,[]);
+  
 
   const userLogin = (e) => {
 

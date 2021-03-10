@@ -53,7 +53,7 @@ exports.addCategory = (req , res, next) => {
     }
     if(category)
     {
-      return res.status(200).json({
+      return res.status(201).json({
         category
       })
     }
