@@ -8,14 +8,10 @@ const initState = {
 
 export default (state = initState , action) => {
 
-  console.log(action);
+  // console.log(action);
   
 
   switch(action.type){
-
-  //   USER_REGISTER_REQUEST : 'USER_REGISTER_REQUEST',
-  //   USER_REGISTER_FAILURE : 'USER_REGISTER_FAILURE',
-  //    USER_REGISTER_SUCCESS : 'USER_REGISTER_SUCCESS'
 
     case userConstants.USER_REGISTER_REQUEST : 
       state = {

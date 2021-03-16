@@ -19,6 +19,8 @@ router
 router
   .route('/admin/signout')
 
-  .post( requireSignin , signout) 
+  // .post( requireSignin , signout) 
+    .post( signout) 
+
 
 module.exports = router;

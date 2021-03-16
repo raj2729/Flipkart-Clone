@@ -1,11 +1,18 @@
 import authReducer from "./auth.reducers";
 import userReducer from "./user.reducers";
+import orderReducer from "./order.reducer";
+import categoryReducer from "./category.reducer";
+import productReducer from "./product.reducer";
 
 import { combineReducers } from "redux";
 
 const rootReducer = combineReducers({
   auth : authReducer,
-  user : userReducer
+  user : userReducer,
+  category : categoryReducer,//Gives state according to switch case
+  // And that switch case is defined by the constant we get from action
+  product : productReducer,
+  order : orderReducer
 })
 
 export default rootReducer;
